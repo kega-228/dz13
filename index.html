@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .error {
+      border-color: red;
+    }
+    table{
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+
+<!--// Додавання товару-->
+<!--// - Кнопка «Додати товар» відкриває форму в модальному вікні.-->
+<!--// - Правила валідації полів:-->
+<!--//     - назва — обов'язкова, від 2 до 100 символів;-->
+<!--// - ціна — обов'язкова, число більше 0, не більше двох знаків після коми;-->
+<!--// - кількість — ціле число, 0 або більше;-->
+<!--// - категорія — вибір зі списку (select), наприклад: «Електроніка», «Одяг», «Продукти», «Книги», «Інше»;-->
+<!--// - опис — необов'язковий, до 500 символів.-->
+<!--// - Поле з помилкою підсвічується червоним, а під ним з'являється пояснення. Помилка зникає, щойно введено коректне значення.-->
+<!--// - Кнопка «Зберегти» неактивна, поки є помилки.-->
+<!--// - Після збереження модальне вікно закривається, а товар з'являється в списку без перезавантаження сторінки.-->
+<button id="add-product-btn">Додати товар</button>
+<dialog id="addProductModal">
+  <form id="addProductForm" method="dialog">
+    <h2>Новий товар</h2>
+
+    <label>
+      Назва
+      <input type="text" id="name" minlength="2" maxlength="100" required>
+      <p></p>
+    </label>
+
+    <label>
+      Ціна, ₴
+      <input type="text" id="price" required>
+      <p></p>
+    </label>
+
+    <label>
+      Кількість
+      <input type="text" id="quantity" required>
+      <p></p>
+    </label>
+
+    <label>
+      Категорія
+      <select id="category" required>
+        <option value="Електроніка">Електроніка</option>
+        <option value="Одяг">Одяг</option>
+        <option value="Продукти">Продукти</option>
+        <option value="Книги">Книги</option>
+        <option value="Інше">Інше</option>
+      </select>
+      <p></p>
+    </label>
+
+    <label>
+      Опис
+      <textarea id="description" rows="3" maxlength="500"></textarea>
+      <p></p>
+    </label>
+
+    <div>
+      <button type="submit" value="save" id="modal-save-btn" disabled>Зберегти</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="editProductModal">
+  <form id="editProductForm" method="dialog">
+    <h2>Змінити товар</h2>
+
+    <label>
+      Назва
+      <input type="text" id="nameEdit" minlength="2" maxlength="100" required>
+      <p></p>
+    </label>
+
+    <label>
+      Ціна, ₴
+      <input type="text" id="priceEdit" required>
+      <p></p>
+    </label>
+
+    <label>
+      Кількість
+      <input type="text" id="quantityEdit" required>
+      <p></p>
+    </label>
+
+    <label>
+      Категорія
+      <select id="categoryEdit" required>
+        <option value="Електроніка">Електроніка</option>
+        <option value="Одяг">Одяг</option>
+        <option value="Продукти">Продукти</option>
+        <option value="Книги">Книги</option>
+        <option value="Інше">Інше</option>
+      </select>
+      <p></p>
+    </label>
+
+    <label>
+      Опис
+      <textarea id="descriptionEdit" rows="3" maxlength="500"></textarea>
+      <p></p>
+    </label>
+
+    <div>
+      <button type="submit" value="save" id="modal-save-btn-edit" disabled>Зберегти</button>
+      <button type="button" id="modal-cancel-btn-edit">Скасувати</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="deleteConfirmModal">
+  <p id="deleteConfirmText"></p>
+  <div>
+    <button id="confirmDeleteBtn">Видалити</button>
+    <button type="button" id="cancelDeleteBtn">Скасувати</button>
+  </div>
+</dialog>
+
+<table>
+  <thead>
+    <tr>
+      <th>Назва</th>
+      <th>Категорія</th>
+      <th>Ціна</th>
+      <th>Кількість</th>
+    </tr>
+  </thead>
+  <tbody id="products-table-body"></tbody>
+</table>
+
+<script src="index.js"></script>
+</body>
+</html>
